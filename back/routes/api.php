@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiHatProductsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('products')->group(function () {
+    Route::prefix('hat')->group(function () {
+        Route::get('/', [ApiHatProductsController::class, 'index']);
+        Route::post('/', [ApiHatProductsController::class, 'store']);
+        Route::get('/:id', [ApiHatProductsController::class, 'show']);
+        Route::patch('/', [ApiHatProductsController::class, 'update']);
+        Route::delete('/:id', [ApiHatProductsController::class, 'destroy']);
+    });
 });

@@ -14,12 +14,12 @@ class UpdateHatProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|integer|min:0',
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'price' => 'required|integer|min:0',
-            'model' => 'required|string',
-            'custom_model_data' => 'required|string'
+            'id' => 'required|integer|min:0|exists:hat_products,id',
+            'name' => 'string',
+            'description' => 'string',
+            'price' => 'integer|min:0',
+            'model' => 'string',
+            'custom_model_data' => 'string'
         ];
     }
 }
