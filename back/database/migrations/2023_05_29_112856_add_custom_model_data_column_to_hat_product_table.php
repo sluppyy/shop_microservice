@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('hat_product', function (Blueprint $table) {
+        Schema::table('hat_products', function (Blueprint $table) {
             $table->unsignedInteger('custom_model_data');
         });
     }
@@ -20,7 +20,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('hat_product', function (Blueprint $table) {
+        Schema::table('hat_products', function (Blueprint $table) {
             $table->dropColumn('custom_model_data');
         });
     }

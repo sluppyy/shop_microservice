@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('hat_purchase', function (Blueprint $table) {
+        Schema::create('hat_purchases', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('product_id');
             $table->string('user_id');
