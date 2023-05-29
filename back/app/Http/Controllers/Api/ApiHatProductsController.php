@@ -34,16 +34,6 @@ class ApiHatProductsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreHatProductRequest $request)
-    {
-        $validated = $request->validated();
-        $product = $this->service->createProduct($validated);
-        return new HatProductResource($product);
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(string $id)
@@ -52,25 +42,5 @@ class ApiHatProductsController extends Controller
         if ($product === null)
             abort(404);
         return new HatProductResource($product);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateHatProductRequest $request)
-    {
-        $validated = $request->validated();
-        $product = $this->service->updateProduct($validated);
-        if ($product === null)
-            abort(404);
-        return new HatProductResource($product);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

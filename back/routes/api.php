@@ -22,9 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('products')->group(function () {
     Route::prefix('hat')->group(function () {
         Route::get('/', [ApiHatProductsController::class, 'index']);
-        Route::post('/', [ApiHatProductsController::class, 'store']);
-        Route::get('/:id', [ApiHatProductsController::class, 'show']);
-        Route::patch('/', [ApiHatProductsController::class, 'update']);
-        Route::delete('/:id', [ApiHatProductsController::class, 'destroy']);
+        Route::get('/{id}', [ApiHatProductsController::class, 'show']);
     });
 });
