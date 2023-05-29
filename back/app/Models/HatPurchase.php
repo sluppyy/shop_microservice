@@ -9,4 +9,9 @@ class HatPurchase extends Purchase
     use HasFactory;
 
     protected $fillable = ['product_id', 'user_id', 'price', 'count'];
+
+    public function product()
+    {
+        return $this->belongsTo(HatProduct::class);
+    }
 }
