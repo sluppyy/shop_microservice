@@ -16,6 +16,11 @@ class HatService
     return $this->productRepo->find($perPage, $page);
   }
 
+  function findProduct(int $id)
+  {
+    return $this->productRepo->findOne($id);
+  }
+
   function createProduct(mixed $dto)
   {
     return $this->productRepo->create($dto);

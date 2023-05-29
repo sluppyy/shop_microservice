@@ -13,14 +13,22 @@ class HatProductRepository
     return HatProduct::paginate($pageSize);
   }
 
+  function findOne(int $id): HatProduct|null
+  {
+    return HatProduct::find($id);
+  }
+
   function create(mixed $dto): HatProduct
   {
     return HatProduct::create($dto);
   }
 
-  function update(mixed $dto): HatProduct
+  function update(mixed $dto): HatProduct|null
   {
-    $product = (HatProduct::findOrFault('id', $dto->id));
+    $product = HatProduct::find($dto['id']);
+    if ($product === null)
+      return null;
+
     $product->fill($dto);
     $product->save();
     return $product;
