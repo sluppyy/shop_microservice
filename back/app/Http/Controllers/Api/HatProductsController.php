@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Services\HatService;
 use Illuminate\Http\Request;
-use App\Services\HatProductService;
 
 class HatProductsController extends Controller
 {
     function __construct(
-        private HatProductService $service
+        private HatService $service
     ) {
     }
 
@@ -17,7 +18,6 @@ class HatProductsController extends Controller
      */
     public function index()
     {
-        return $this->service->kek();
     }
 
     /**

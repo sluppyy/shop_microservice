@@ -2,28 +2,26 @@
 
 namespace App\Services;
 
-use App\DTO\HatProduct\CreateHatProductDTO;
-use App\DTO\HatProduct\UpdateHatProductDTO;
 use App\Repositories\HatProductRepository;
 
-class HatProductService
+class HatService
 {
   function __construct(
     private HatProductRepository $productRepo
   ) {
   }
 
-  function findProducts()
+  function findProducts(int $perPage = 10, int $page = 10)
   {
-    return $this->productRepo->find();
+    return $this->productRepo->find($perPage, $page);
   }
 
-  function createProduct(CreateHatProductDTO $dto)
+  function createProduct(mixed $dto)
   {
     return $this->productRepo->create($dto);
   }
 
-  function updateProduct(UpdateHatProductDTO $dto)
+  function updateProduct(mixed $dto)
   {
     return $this->productRepo->update($dto);
   }

@@ -2,26 +2,28 @@
 
 namespace App\Repositories;
 
-use App\DTO\HatProduct\CreateHatProductDTO;
-use App\DTO\HatProduct\UpdateHatProductDTO;
 use App\Models\HatProduct;
 
 class HatProductRepository
 {
-  function find(int $pageSize = 10, int $page = $_GET['page'] ?? 1)
+  function find(int $pageSize = 10, int $page = null)
   {
-    $_GET['page'] = $page;
+    //implicit transmission of $page for pagination
+    $_GET['page'] = $page ?? $_GET['page'] ?? 1;
     return HatProduct::paginate($pageSize);
   }
 
-  function create(CreateHatProductDTO $dto): HatProduct
+  function create(mixed $dto): HatProduct
   {
     return HatProduct::create($dto);
   }
 
-  function update(UpdateHatProductDTO $dto): HatProduct
+  function update(mixed $dto): HatProduct
   {
-    return HatProduct::find('id', $dto->id);
+    $product = (HatProduct::findOrFault('id', $dto->id));
+    $product->fill($dto);
+    $product->save();
+    return $product;
   }
 
   function destroy(int $id): bool
