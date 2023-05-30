@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import styles from './header.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ThemeSwitcher from '../ThemeSwitcher'
 
 const navItems = [
@@ -10,6 +10,11 @@ const navItems = [
 
 export default function Header() {
   const [opened, setOpened] = useState(false)
+  const path = useLocation().pathname
+
+  useEffect(() => {
+    setOpened(false)
+  }, [path, setOpened])
 
   return (
     <header className="sticky-top">
@@ -34,7 +39,7 @@ export default function Header() {
           </div>
           <div className="offcanvas-body">
             <ul className="navbar-nav">
-              <NavItems />
+              <NavItems path={path} />
             </ul>
           </div>
         </div>
@@ -58,16 +63,18 @@ function BrandLogo() {
   )
 }
 
-function NavItems() {
-  const currentPath = useLocation().pathname
+interface NavItemsProps {
+  path: string
+}
 
+function NavItems({ path }: NavItemsProps) {
   return (
     <>
       {navItems.map((item) => (
         <li className="nav-item" key={item.path}>
           <Link
             to={item.path}
-            className={`nav-link ${currentPath == item.path ? 'active' : ''}`}
+            className={`nav-link ${path == item.path ? 'active' : ''}`}
           >
             {item.content}
           </Link>
