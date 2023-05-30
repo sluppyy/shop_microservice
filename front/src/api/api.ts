@@ -11,7 +11,7 @@ export interface FindHatProductsOk {
     preview_img_url: string
     price: number
     model: string
-    custom_model_data: string
+    custom_model_data: number
   }[]
   meta: {
     current_page: number

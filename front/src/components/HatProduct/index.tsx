@@ -8,11 +8,17 @@ interface Props {
 export default function HatProduct({ product }: Props) {
   return (
     <div className={`card ${styles['hatProduct']}`}>
-      <img
-        src={`${import.meta.env.VITE_PUBLIC_URL}${product.preview_img_url}`}
-        alt={product.name + ' preview'}
-        className={`card-img-top ${styles['hatProduct-img']}`}
-      />
+      {product.preview_img_url ? (
+        <img
+          src={product.preview_img_url}
+          alt={product.name + ' preview'}
+          className={`card-img-top ${styles['hatProduct-img']}`}
+        />
+      ) : (
+        <span
+          className={`card-img-top placeholder ${styles['hatProduct-img']}`}
+        />
+      )}
       <div className="card-body">
         <div className="card-title">{product.name}</div>
         <div className="card-text">{product.description}</div>

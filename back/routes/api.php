@@ -20,8 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('products')->group(function () {
-    Route::prefix('hat')->group(function () {
-        Route::get('/', [ApiHatProductsController::class, 'index']);
-        Route::get('/{id}', [ApiHatProductsController::class, 'show']);
+    Route::prefix('hat')->controller(ApiHatProductsController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/{id}', 'show');
+        Route::post('/', 'store');
     });
 });

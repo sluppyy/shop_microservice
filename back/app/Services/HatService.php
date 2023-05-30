@@ -25,7 +25,7 @@ class HatService
   function createProduct(mixed $dto)
   {
     if ($dto['preview'] !== null) {
-      $path = Storage::disk('local')->put('images/products/hat', $dto['preview']);
+      $path = Storage::disk('local')->put('public/images/products/hat', $dto['preview']);
       $dto['preview_img_url'] = $path;
     }
     return $this->productRepo->create($dto);
