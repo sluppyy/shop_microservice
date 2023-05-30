@@ -1,6 +1,6 @@
 import _axios from 'axios'
 const axios = _axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: import.meta.env.VITE_BASE_URL + '/api',
 })
 
 export interface FindHatProductsOk {
