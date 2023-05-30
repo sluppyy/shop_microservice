@@ -17,6 +17,7 @@ class UpdateHatProductRequest extends FormRequest
             'id' => 'required|integer|min:0|exists:hat_products,id',
             'name' => 'string',
             'description' => 'string',
+            'preview_img_url' => 'nullable|string',
             'price' => 'integer|min:0',
             'model' => 'string',
             'custom_model_data' => 'string'

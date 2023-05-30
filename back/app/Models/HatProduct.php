@@ -8,7 +8,7 @@ class HatProduct extends Product
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'price', 'model', 'custom_model_data'];
+    protected $fillable = ['name', 'description', 'preview_img_url', 'price', 'model', 'custom_model_data'];
 
     public function purchases()
     {
