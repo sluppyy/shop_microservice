@@ -19,9 +19,8 @@ export default function ThemeSwitcher() {
           className="form-check-input"
           type="checkbox"
           role="switch"
-          id="flexSwitchCheckChecked"
-          value={theme === 'dark' ? undefined : 'checked'}
-          onClick={() => dispatch(toggle())}
+          defaultChecked={theme === 'dark'}
+          onChange={() => dispatch(toggle())}
         />
       </div>
       <i className="d-inline bi-moon-stars" />
