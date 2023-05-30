@@ -187,6 +187,7 @@ return [
         'HatProduct' => App\Models\HatProduct::class,
         'Purchase' => App\Models\Purchase::class,
         'Product' => App\Models\Product::class,
+        'Storage' => Illuminate\Support\Facades\Storage::class
     ])->toArray(),
 
 ];
