@@ -5,7 +5,7 @@ import ThemeSwitcher from '../ThemeSwitcher'
 
 const navItems = [
   { path: '/', content: 'Главная' },
-  { path: '/products', content: 'Товары' },
+  { path: '/products/hats', content: 'Шляпы' },
 ]
 
 export default function Header() {
@@ -41,10 +41,9 @@ export default function Header() {
             <ul className="navbar-nav">
               <NavItems path={path} />
             </ul>
+            <ThemeSwitcher className="my-auto" />
           </div>
         </div>
-
-        <ThemeSwitcher />
       </nav>
     </header>
   )

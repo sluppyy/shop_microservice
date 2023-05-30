@@ -12,6 +12,7 @@ export default function App() {
         <Suspense fallback={<Preloader />}>
           <Routes>
             <Route path="/" element={<Pages.Main />} />
+            <Route path="/products/hats" element={<Pages.HatProducts />} />
             <Route path="*" element={<Pages.NotFound />} />
           </Routes>
         </Suspense>

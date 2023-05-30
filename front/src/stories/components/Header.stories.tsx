@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import '@/index.scss'
-import 'bootstrap-icons/font/bootstrap-icons.min.css'
 
 import Header from '@/components/Header'
 import { BrowserRouter } from 'react-router-dom'
 import { store } from '@/store'
 import { Provider } from 'react-redux'
 import { toggle } from '@/store/theme'
+import '@/index.scss'
+import 'bootstrap-icons/font/bootstrap-icons.min.css'
 
 const meta: Meta<typeof Header> = {
   title: 'Components/Header',

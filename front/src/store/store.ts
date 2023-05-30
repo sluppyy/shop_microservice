@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { themeSlice } from './theme'
+import { hatProductsSlice } from './hatProducts'
 
 export function store() {
   return configureStore({
     reducer: {
       theme: themeSlice.reducer,
+      hatProducts: hatProductsSlice.reducer,
     },
   })
 }
