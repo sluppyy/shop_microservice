@@ -6,12 +6,9 @@ export default function ThemeSwitcher() {
   const theme = useAppSelector((s) => s.theme.theme)
   const dispatch = useAppDispatch()
 
-  const inputProps = {
-    checked: theme == 'dark' ? true : undefined,
-  }
-
   useEffect(() => {
-    document.body.setAttribute('data-bs-theme', theme)
+    const root = document.getElementById('theme-handler')
+    root && root.setAttribute('data-bs-theme', theme)
   }, [theme])
 
   return (
@@ -23,7 +20,7 @@ export default function ThemeSwitcher() {
           type="checkbox"
           role="switch"
           id="flexSwitchCheckChecked"
-          {...inputProps}
+          value={theme === 'dark' ? undefined : 'checked'}
           onClick={() => dispatch(toggle())}
         />
       </div>
