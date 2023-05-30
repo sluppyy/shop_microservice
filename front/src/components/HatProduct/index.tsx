@@ -15,7 +15,7 @@ export default function HatProduct({ product }: Props) {
       />
       <div className="card-body">
         <div className="card-title">{product.name}</div>
-        <div className="card-text placeholder-glow">{product.description}</div>
+        <div className="card-text">{product.description}</div>
         <button className="btn btn-primary mt-2">{product.price}</button>
       </div>
     </div>
