@@ -1,9 +1,6 @@
 export default function NotFound() {
   return (
-    <div
-      className="d-flex justify-content-center align-items-center"
-      style={{ height: '100%' }}
-    >
+    <div className="h-100 d-flex justify-content-center align-items-center">
       <h1>404</h1>
     </div>
   )

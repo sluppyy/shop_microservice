@@ -8,12 +8,14 @@ export default function App() {
   return (
     <>
       <Header />
-      <Suspense fallback={<Preloader />}>
-        <Routes>
-          <Route path="/" element={<Pages.Main />} />
-          <Route path="*" element={<Pages.NotFound />} />
-        </Routes>
-      </Suspense>
+      <main style={{ flex: 1 }}>
+        <Suspense fallback={<Preloader />}>
+          <Routes>
+            <Route path="/" element={<Pages.Main />} />
+            <Route path="*" element={<Pages.NotFound />} />
+          </Routes>
+        </Suspense>
+      </main>
     </>
   )
 }
