@@ -18,6 +18,7 @@ class HatProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'preview_img_url' => $this->preview_img_url,
             'price' => $this->price,
             'model' => $this->model,
             'custom_model_data' => $this->custom_model_data,
