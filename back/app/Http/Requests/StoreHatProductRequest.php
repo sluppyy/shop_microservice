@@ -16,10 +16,10 @@ class StoreHatProductRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'required|string',
-            'preview_img_url' => 'nullable|string',
+            'preview' => 'required|image|mimes:jpeg,jpg,png,gif,svg',
             'price' => 'required|integer|min:0',
             'model' => 'required|string',
-            'custom_model_data' => 'required|string'
+            'custom_model_data' => 'required|integer'
         ];
     }
 }
