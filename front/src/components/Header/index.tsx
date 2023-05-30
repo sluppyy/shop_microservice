@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import styles from './header.module.css'
 import { useState } from 'react'
+import ThemeSwitcher from '../ThemeSwitcher'
 
 const navItems = [
   { path: '/', content: 'Главная' },
@@ -37,6 +38,8 @@ export default function Header() {
             </ul>
           </div>
         </div>
+
+        <ThemeSwitcher />
       </nav>
     </header>
   )
