@@ -13,7 +13,14 @@ defineProps({ products: Object })
   <AuthenticatedLayout>
         <template #header>
             <h2 class="inline font-semibold text-xl text-gray-800 leading-tight">Hat products</h2>
-            <PrimaryButton class="ml-4"><Link :href="route('hatProducts.create')">Create</Link></PrimaryButton>
+            <Link :href="route('hatProducts.create')">
+                <PrimaryButton class="ml-4">
+                    Create
+                </PrimaryButton>
+            </Link>
+            <p>
+                Total: {{  products.total }}
+            </p>
         </template>
 
         <div class="py-12 px-8">
