@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+import PrimaryButton from '@/Components/PrimaryButton.vue'
 
 defineProps({ products: Object })
 </script>
@@ -10,7 +11,8 @@ defineProps({ products: Object })
 
   <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Hat products</h2>
+            <h2 class="inline font-semibold text-xl text-gray-800 leading-tight">Hat products</h2>
+            <PrimaryButton class="ml-4"><Link :href="route('hatProducts.create')">Create</Link></PrimaryButton>
         </template>
 
         <div class="py-12 px-8">

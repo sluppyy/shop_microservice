@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreHatProductRequest;
 use App\Http\Requests\UpdateHatProductRequest;
 use App\Services\HatService;
 use Illuminate\Http\Request;
@@ -31,24 +32,26 @@ class HatProductsController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('HatProducts/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreHatProductRequest $request)
     {
-        //
+        $product = $this->service->createProduct($request->validated());
+
+        return Redirect::route('hatProducts.edit', $product->id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    // public function show(string $id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
