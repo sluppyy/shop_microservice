@@ -12,6 +12,8 @@ export default function App() {
         <Suspense fallback={<Preloader />}>
           <Routes>
             <Route index path="/" element={<Pages.Main />} />
+            <Route index path="/auth" element={<Pages.Auth />} />
+            <Route index path="/profile" element={<Pages.Profile />} />
             <Route path="/products/hats" element={<Pages.HatProducts />} />
             <Route path="*" element={<Pages.NotFound />} />
           </Routes>

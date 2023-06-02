@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import styles from './header.module.css'
 import { useEffect, useState } from 'react'
 import ThemeSwitcher from '../ThemeSwitcher'
+import { useAppSelector } from '@/store'
 
 const navItems = [
   { path: '/', content: 'Главная' },
@@ -67,6 +68,8 @@ interface NavItemsProps {
 }
 
 function NavItems({ path }: NavItemsProps) {
+  const user = useAppSelector((s) => s.auth.user)
+
   return (
     <>
       {navItems.map((item) => (
@@ -79,6 +82,25 @@ function NavItems({ path }: NavItemsProps) {
           </Link>
         </li>
       ))}
+      {!user ? (
+        <li className="nav-item" key={'/auth'}>
+          <Link
+            to={'/auth'}
+            className={`nav-link ${path == '/auth' ? 'active' : ''}`}
+          >
+            Войти
+          </Link>
+        </li>
+      ) : (
+        <li className="nav-item" key={'/profile'}>
+          <Link
+            to={'/profile'}
+            className={`nav-link ${path == '/profile' ? 'active' : ''}`}
+          >
+            Профиль
+          </Link>
+        </li>
+      )}
     </>
   )
 }
