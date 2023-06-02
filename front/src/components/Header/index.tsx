@@ -17,7 +17,7 @@ export default function Header() {
   }, [path, setOpened])
 
   return (
-    <header className="sticky-top">
+    <header className="sticky-top bg-body-tertiary">
       <nav className="navbar navbar-expand-md navbar p-2">
         <BrandLogo />
         <button
