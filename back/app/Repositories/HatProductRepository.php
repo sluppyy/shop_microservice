@@ -23,9 +23,9 @@ class HatProductRepository
     return HatProduct::create($dto);
   }
 
-  function update(mixed $dto): HatProduct|null
+  function update(int $id, mixed $dto): HatProduct|null
   {
-    $product = HatProduct::find($dto['id']);
+    $product = HatProduct::find($id);
     if ($product === null)
       return null;
 
@@ -34,8 +34,13 @@ class HatProductRepository
     return $product;
   }
 
-  function destroy(int $id): bool
+  function destroy(int $id): HatProduct|null
   {
-    return HatProduct::destroy($id) === 1;
+    $product = HatProduct::find($id);
+    if ($product == null) {
+      return null;
+    }
+    HatProduct::destroy($id);
+    return $product;
   }
 }

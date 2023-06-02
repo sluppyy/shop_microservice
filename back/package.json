@@ -6,6 +6,8 @@
         "build": "vite build && vite build --ssr"
     },
     "dependencies": {
+        "bootstrap-icons": "^1.10.5",
+        "bootstrap-vue": "^2.23.1"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",

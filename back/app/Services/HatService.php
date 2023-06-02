@@ -24,20 +24,33 @@ class HatService
 
   function createProduct(mixed $dto)
   {
-    if ($dto['preview'] !== null) {
+    if (array_key_exists('preview', $dto)) {
       $path = Storage::disk('local')->put('public/images/products/hat', $dto['preview']);
       $dto['preview_img_url'] = $path;
     }
     return $this->productRepo->create($dto);
   }
 
-  function updateProduct(mixed $dto)
+  function updateProduct(int $id, mixed $dto)
   {
-    return $this->productRepo->update($dto);
+    if (array_key_exists('preview', $dto)) {
+      $path = Storage::disk('local')->put('public/images/products/hat', $dto['preview']);
+      $dto['preview_img_url'] = $path;
+
+      $product = $this->findProduct($id);
+      if ($product != null && $product->preview_img_url != null) {
+        Storage::disk('local')->delete($product->preview_img_url);
+      }
+    }
+    return $this->productRepo->update($id, $dto);
   }
 
   function destroy(int $id)
   {
-    return $this->productRepo->destroy($id);
+    $product = $this->productRepo->destroy($id);
+    if ($product != null) {
+      Storage::disk('local')->delete($product->preview_img_url);
+    }
+    return $product;
   }
 }
