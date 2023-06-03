@@ -4,6 +4,7 @@ import { themeSlice } from './theme'
 import { hatProductsSlice } from './hatProducts'
 import { authSlice } from './auth'
 import { balanceSlice } from './balance'
+import { hatInventorySlice } from './hatInventory'
 
 export function store() {
   return configureStore({
@@ -12,6 +13,7 @@ export function store() {
       hatProducts: hatProductsSlice.reducer,
       auth: authSlice.reducer,
       balance: balanceSlice.reducer,
+      hatInventory: hatInventorySlice.reducer,
     },
   })
 }

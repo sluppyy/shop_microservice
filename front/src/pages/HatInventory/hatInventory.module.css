@@ -1,0 +1,9 @@
+.block {
+  padding: 2em;
+}
+
+@media (width <= 400px) {
+  .block {
+    padding: 0;
+  }
+}

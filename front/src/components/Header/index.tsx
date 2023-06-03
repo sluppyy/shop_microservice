@@ -7,6 +7,7 @@ import { useAppSelector } from '@/store'
 const navItems = [
   { path: '/', content: 'Главная' },
   { path: '/products/hats', content: 'Шляпы' },
+  { path: '/hatInventory', content: 'Мои шляпы' },
 ]
 
 export default function Header() {

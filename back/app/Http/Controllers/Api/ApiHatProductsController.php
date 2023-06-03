@@ -62,7 +62,9 @@ class ApiHatProductsController extends Controller
     function userItems()
     {
         $user_id = JWTUser::userId();
-        $userItems = $this->service->findAllUserItems($user_id);
+        $perPage = $_GET['perPage'] ?? 10;
+        $page = $_GET['page'] ?? 1;
+        $userItems = $this->service->findAllUserItems($user_id, $perPage, $page);
         return UserItemsResource::collection($userItems);
     }
 }

@@ -5,6 +5,7 @@ const NotFound = lazy(() => import('./NotFound'))
 const HatProducts = lazy(() => import('./HatProducts'))
 const Auth = lazy(() => import('./Auth'))
 const Profile = lazy(() => import('./Profile'))
+const HatInventory = lazy(() => import('./HatInventory'))
 
 export default {
   Main,
@@ -12,4 +13,5 @@ export default {
   HatProducts,
   Auth,
   Profile,
+  HatInventory,
 }

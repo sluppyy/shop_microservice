@@ -15,6 +15,7 @@ export default function App() {
             <Route index path="/auth" element={<Pages.Auth />} />
             <Route index path="/profile" element={<Pages.Profile />} />
             <Route path="/products/hats" element={<Pages.HatProducts />} />
+            <Route path="/hatInventory" element={<Pages.HatInventory />} />
             <Route path="*" element={<Pages.NotFound />} />
           </Routes>
         </Suspense>

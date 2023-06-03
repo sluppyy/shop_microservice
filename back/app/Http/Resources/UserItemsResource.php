@@ -16,7 +16,6 @@ class UserItemsResource extends JsonResource
     {
         return [
             'count' => $this->count,
-            'user_id' => $this->user_id,
             'product' => [
                 'id' => $this->product->id,
                 'name' => $this->product->name,

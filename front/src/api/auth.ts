@@ -29,6 +29,7 @@ let updateTokenCycle: ReturnType<typeof setTimeout> | undefined
 export async function startUpdateTokenCycle() {
   await updateAccessToken()
   updateTokenCycle = setInterval(() => {
+    console.log('Refresh token')
     updateAccessToken()
   }, 1000 * 60 * 4)
 }
