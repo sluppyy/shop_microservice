@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserBalanceResource;
 use App\Services\BalanceService;
 
-class UserBalancesController extends Controller
+class ApiUserBalancesController extends Controller
 {
     function __construct(
         private BalanceService $service

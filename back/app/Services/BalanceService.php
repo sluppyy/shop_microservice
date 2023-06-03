@@ -21,4 +21,9 @@ class BalanceService
 
     return $balance;
   }
+
+  function findUserBalances(int $perPage = 10, int $page = 10)
+  {
+    return $this->repo->find($perPage, $page);
+  }
 }

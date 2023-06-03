@@ -12,4 +12,8 @@ class UserBalance extends Model
     protected $table = 'user_balances';
     protected $fillable = ['user_id', 'candies'];
     protected $primaryKey = 'user_id';
+
+    protected $casts = [
+        'user_id' => 'string'
+    ];
 }
