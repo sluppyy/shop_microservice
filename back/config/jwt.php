@@ -145,7 +145,8 @@ return [
     */
 
     'required_claims' => [
-        'id',
+        //'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
+        // 'id',
         'exp',
     ],
 
@@ -201,7 +202,7 @@ return [
     |
     */
 
-    'leeway' => env('JWT_LEEWAY', 0),
+    'leeway' => env('JWT_LEEWAY', 100),
 
     /*
     |--------------------------------------------------------------------------

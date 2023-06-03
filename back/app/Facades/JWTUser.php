@@ -11,8 +11,12 @@ class JWTUser
   {
     try {
       $token = JWTAuth::getToken();
-      return JWTAuth::getPayload($token)['id'];
+      $payload = JWTAuth::getPayload($token);
+      return $payload['id'] ??
+        $payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] ??
+        abort(401);
     } catch (Exception $e) {
+      throw $e;
       return abort(401);
     }
   }
