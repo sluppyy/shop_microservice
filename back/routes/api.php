@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiHatProductsController;
+use App\Http\Controllers\Api\UserBalancesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,9 @@ Route::prefix('products')->group(function () {
         Route::post('/', 'store');
     });
 });
+
+Route::prefix('balance')
+    ->controller(UserBalancesController::class)
+    ->group(function () {
+        Route::get('/', 'show');
+    });
