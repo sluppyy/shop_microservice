@@ -55,11 +55,6 @@ class ApiHatProductsController extends Controller
     {
         $user_id = JWTUser::userId();
         $dto = $request->validated();
-        $res = $this->service->createBuyHatRequest($user_id, $dto['product_id'], $dto['count']);
-
-        if ($res == null)
-            return abort(400);
-
-        return 'ok';
+        $this->service->createBuyHatRequest($user_id, $dto['product_id'], $dto['count']);
     }
 }

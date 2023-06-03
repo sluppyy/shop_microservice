@@ -63,22 +63,23 @@ class HatService
     return $this->purchaseRepo->find($perPage, $page);
   }
 
-  //TODO add custom exception
   function createBuyHatRequest(string $user_id, int $product_id, int $count = 1)
   {
     if ($count <= 0)
-      return null;
+      throw new \App\Exceptions\NotPositiveCountException();
 
     $balance = $this->balanceService->findUserBalance($user_id);
     if ($balance == null)
-      return null;
+      throw new \App\Exceptions\NotFoundBalanceException();
+
 
     $product = $this->findProduct($product_id);
     if ($product == null)
-      return null;
+      throw new \App\Exceptions\NotFoundHatProductException();
+
 
     if ($product->price * $count > $balance->candies)
-      return null;
+      throw new \App\Exceptions\NotEnoughCandiesException();
 
     BuyHat::dispatch($product_id, $user_id, $count);
 
@@ -91,19 +92,19 @@ class HatService
   function _buyHat(string $user_id, int $product_id, int $count = 1)
   {
     if ($count <= 0)
-      return;
+      throw new \App\Exceptions\NotPositiveCountException();
 
     $balance = $this->balanceService->findUserBalance($user_id);
     if ($balance == null)
-      return;
+      throw new \App\Exceptions\NotFoundBalanceException();
 
     $product = $this->findProduct($product_id);
     if ($product == null)
-      return;
+      throw new \App\Exceptions\NotFoundHatProductException();
 
     $candiesToDecrease = $product->price * $count;
     if ($candiesToDecrease > $balance->candies)
-      return;
+      throw new \App\Exceptions\NotEnoughCandiesException();
 
     $this->purchaseRepo->create($user_id, $product_id, $product->price, $count);
     $this->balanceService->decreaseBalance($user_id, $candiesToDecrease);

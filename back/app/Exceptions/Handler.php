@@ -23,8 +23,20 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->reportable(function (NotFoundHatProductException $e) {
+            return abort(404, 'notFoundHatProduct');
+        });
+
+        $this->reportable(function (NotEnoughCandiesException $e) {
+            return abort(400, 'notEnoughCandies');
+        });
+
+        $this->reportable(function (NotFoundBalanceException $e) {
+            return abort(404, 'notFoundBalance');
+        });
+
+        $this->reportable(function (NotPositiveCountException $e) {
+            return abort(404, 'notPositiveCount');
         });
     }
 }
