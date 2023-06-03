@@ -58,6 +58,11 @@ class HatService
     return $product;
   }
 
+  function findPurchases(int $perPage = 10, int $page = 10)
+  {
+    return $this->purchaseRepo->find($perPage, $page);
+  }
+
   //TODO add custom exception
   function createBuyHatRequest(string $user_id, int $product_id, int $count = 1)
   {

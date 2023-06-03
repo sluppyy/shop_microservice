@@ -21,4 +21,11 @@ class HatPurchaseRepository
       )
     );
   }
+
+  function find(int $pageSize = 10, int $page = null)
+  {
+    //implicit transmission of $page for pagination
+    $_GET['page'] = $page ?? $_GET['page'] ?? 1;
+    return HatPurchase::paginate($pageSize);
+  }
 }
