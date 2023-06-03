@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->string('user_id');
             $table->bigInteger('product_id');
             $table->unsignedInteger('count');
+            $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('hat_products');
 

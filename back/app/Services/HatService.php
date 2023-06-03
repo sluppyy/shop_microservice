@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Jobs\BuyHat;
 use App\Repositories\HatProductRepository;
 use App\Repositories\HatPurchaseRepository;
+use App\Repositories\HatUserItemsRepository;
 use Illuminate\Support\Facades\Storage;
 
 class HatService
@@ -12,7 +13,8 @@ class HatService
   function __construct(
     private HatProductRepository $productRepo,
     private BalanceService $balanceService,
-    private HatPurchaseRepository $purchaseRepo
+    private HatPurchaseRepository $purchaseRepo,
+    private HatUserItemsRepository $userItemsRepo
   ) {
   }
 
@@ -86,6 +88,38 @@ class HatService
     return true;
   }
 
+  function findUserItems(string $user_id, int $product_id)
+  {
+    return $this->userItemsRepo->findUserItems($user_id, $product_id);
+  }
+
+  function findAllUserItems(string $user_id, int $pageSize = 10, int $page = null)
+  {
+    return $this->userItemsRepo->findAllUserItems($user_id, $pageSize, $page);
+  }
+
+  function findAllUsersItems(int $pageSize = 10, int $page = null)
+  {
+    return $this->userItemsRepo->findAllUsersItems($pageSize, $page);
+  }
+
+  function giveUserItem(string $user_id, int $product_id, int $count)
+  {
+    if ($count < 0)
+      throw new \App\Exceptions\NotPositiveCountException;
+
+    $items = $this->findUserItems($user_id, $product_id);
+    if ($items == null) {
+      $items = $this->userItemsRepo->create($user_id, $product_id, $count);
+      return $items;
+    }
+
+    $items->count += $count;
+    $items->save();
+
+    return $items;
+  }
+
   /**
    * private method. use createBuyHatRequest instead
    */
@@ -108,5 +142,6 @@ class HatService
 
     $this->purchaseRepo->create($user_id, $product_id, $product->price, $count);
     $this->balanceService->decreaseBalance($user_id, $candiesToDecrease);
+    $this->giveUserItem($user_id, $product_id, $count);
   }
 }

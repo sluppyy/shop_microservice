@@ -11,6 +11,7 @@ class HatUserItems extends UserItems
     protected $table = 'hat_user_items';
     protected $fillable = ['user_id', 'product_id', 'count'];
 
+    protected $primaryKey = 'user_id';
 
     public function product()
     {
