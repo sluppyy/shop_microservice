@@ -14,4 +14,9 @@ class HatProduct extends Product
     {
         return $this->hasMany(HatPurchase::class, 'product_id');
     }
+
+    public function userItems()
+    {
+        return $this->hasMany(HatUserItems::class, 'product_id');
+    }
 }
