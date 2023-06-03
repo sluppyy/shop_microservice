@@ -12,6 +12,9 @@ class HatUserItems extends UserItems
     protected $fillable = ['user_id', 'product_id', 'count'];
 
     protected $primaryKey = 'user_id';
+    protected $casts = [
+        'user_id' => 'string'
+    ];
 
     public function product()
     {

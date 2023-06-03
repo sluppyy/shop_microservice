@@ -47,6 +47,12 @@ const showingNavigationDropdown = ref(false);
                             </div>
 
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('hatUserItems.index')" :active="route().current('hatUserItems.index')">
+                                    Hats items
+                                </NavLink>
+                            </div>
+
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('balance.index')" :active="route().current('balance.index')">
                                     Balances
                                 </NavLink>
