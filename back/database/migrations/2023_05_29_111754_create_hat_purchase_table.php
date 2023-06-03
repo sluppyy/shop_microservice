@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->unsignedInteger('price');
             $table->unsignedInteger('count');
             $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('hat_products');
         });
     }
 
