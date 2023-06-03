@@ -16,12 +16,15 @@ function usePagination() {
 
 export default function HatInventory() {
   const dispatch = useAppDispatch()
-  const { status, items, pages } = useAppSelector((state) => state.hatInventory)
+  const [{ status, items, pages }, user] = useAppSelector((state) => [
+    state.hatInventory,
+    state.auth.user,
+  ])
   const [page, perPage] = usePagination()
 
   useEffect(() => {
     dispatch(loadNextPage({ page, perPage: perPage ?? undefined }))
-  }, [page, perPage])
+  }, [page, perPage, user])
 
   if (status == 'unknown') return <></>
   if (status == 'error') return <div>{':('}</div>
