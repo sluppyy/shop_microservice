@@ -4,13 +4,25 @@ namespace App\Http\Controllers\Api;
 
 use App\Facades\JWTUser;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Resources\UserBalanceResource;
+use App\Services\BalanceService;
 
 class UserBalancesController extends Controller
 {
+    function __construct(
+        private BalanceService $service
+    ) {
+    }
+
     public function show()
     {
         $userId = JWTUser::userId();
-        return 'ok';
+        $balance = $this->service->findUserBalance($userId);
+
+        if ($balance == null) {
+            return abort(404);
+        }
+
+        return new UserBalanceResource($balance);
     }
 }

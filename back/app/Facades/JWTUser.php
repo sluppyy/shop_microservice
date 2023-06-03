@@ -7,7 +7,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JWTUser
 {
-  public static function userId()
+  public static function userId(): string
   {
     try {
       $token = JWTAuth::getToken();
