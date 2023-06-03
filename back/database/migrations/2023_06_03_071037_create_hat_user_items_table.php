@@ -11,11 +11,13 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('hat_user_items', function (Blueprint $table) {
-            $table->string('user_id')->primary();
-            $table->bigInteger('product_id')->primary();
+            $table->string('user_id');
+            $table->bigInteger('product_id');
             $table->unsignedInteger('count');
 
             $table->foreign('product_id')->references('id')->on('hat_products');
+
+            $table->primary(array('user_id', 'product_id'));
         });
     }
 
