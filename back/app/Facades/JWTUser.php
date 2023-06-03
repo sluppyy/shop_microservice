@@ -16,7 +16,6 @@ class JWTUser
         $payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] ??
         abort(401);
     } catch (Exception $e) {
-      throw $e;
       return abort(401);
     }
   }
