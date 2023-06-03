@@ -21,7 +21,7 @@ export default function Profile() {
 
   return (
     <div className="h-100 flex-full d-flex justify-content-center pt-4">
-      <div className="col-lg-8">
+      <div className="col-lg-8 col-sm-10">
         <div className="card mb-4">
           <div className="card-body">
             <div className="row">
