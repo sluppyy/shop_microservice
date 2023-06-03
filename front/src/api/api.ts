@@ -1,6 +1,7 @@
 import _axios from 'axios'
+import { tokens } from './auth'
 const axios = _axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL + '/api',
+  baseURL: import.meta.env.VITE_BASE_URL,
 })
 
 export interface FindHatProductsOk {
@@ -37,6 +38,32 @@ export async function findHatProducts(
   try {
     const res = await axios.get('/products/hat', { params: { perPage, page } })
     return { code: 'ok', products: res.data }
+  } catch (error) {
+    return { code: 'error' }
+  }
+}
+
+export type GetBalanceResponse =
+  | {
+      code: 'ok'
+      data: {
+        user_id: string
+        candies: number
+      }
+    }
+  | {
+      code: 'error'
+    }
+export async function getBalance(): Promise<GetBalanceResponse> {
+  if (!tokens.accessToken) return { code: 'error' }
+  try {
+    const res = await axios.get('/balance', {
+      headers: { Authorization: `Bearer ${tokens.accessToken}` },
+    })
+    return {
+      code: 'ok',
+      data: res.data.data,
+    }
   } catch (error) {
     return { code: 'error' }
   }

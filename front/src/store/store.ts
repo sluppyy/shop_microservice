@@ -3,6 +3,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { themeSlice } from './theme'
 import { hatProductsSlice } from './hatProducts'
 import { authSlice } from './auth'
+import { balanceSlice } from './balance'
 
 export function store() {
   return configureStore({
@@ -10,6 +11,7 @@ export function store() {
       theme: themeSlice.reducer,
       hatProducts: hatProductsSlice.reducer,
       auth: authSlice.reducer,
+      balance: balanceSlice.reducer,
     },
   })
 }

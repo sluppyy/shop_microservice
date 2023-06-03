@@ -5,6 +5,7 @@ import {
   stopUpdateTokenCycle,
   tokens,
 } from '@/api'
+import { loadBalance } from './balance'
 
 interface AuthSliceState {
   authStatus: 'unknown' | 'process' | 'ok' | 'error'
@@ -83,4 +84,12 @@ export const login = createAsyncThunk(
   }
 )
 
-export const auth = createAsyncThunk('auth/auth', apiAuth)
+export const auth = createAsyncThunk('auth/auth', async (_: void, api) => {
+  const res = await apiAuth()
+
+  if (res.code == 'ok') {
+    api.dispatch(loadBalance())
+  }
+
+  return res
+})

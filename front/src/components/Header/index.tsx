@@ -68,7 +68,10 @@ interface NavItemsProps {
 }
 
 function NavItems({ path }: NavItemsProps) {
-  const user = useAppSelector((s) => s.auth.user)
+  const [user, balance] = useAppSelector((s) => [
+    s.auth.user,
+    s.balance.candies,
+  ])
 
   return (
     <>
@@ -92,7 +95,7 @@ function NavItems({ path }: NavItemsProps) {
           </Link>
         </li>
       ) : (
-        <li className="nav-item" key={'/profile'}>
+        <li className="nav-item">
           <Link
             to={'/profile'}
             className={`nav-link ${path == '/profile' ? 'active' : ''}`}
@@ -101,6 +104,7 @@ function NavItems({ path }: NavItemsProps) {
           </Link>
         </li>
       )}
+      {balance !== null && <li className="navbar-text me-3">{balance} 🍬</li>}
     </>
   )
 }
