@@ -23,4 +23,14 @@ class BalanceRepository
   {
     return UserBalance::find($userId);
   }
+
+  function update(string $user_id, int $candies)
+  {
+    $balance = $this->findUserBalance($user_id);
+    if ($balance == null)
+      return null;
+    $balance->candies = $candies;
+    $balance->save();
+    return $balance;
+  }
 }

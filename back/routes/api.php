@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('products')->group(function () {
     Route::prefix('hat')->controller(ApiHatProductsController::class)->group(function () {
         Route::get('/', 'index');
+        Route::post('/buy', 'buyHat');
         Route::get('/{id}', 'show');
         Route::post('/', 'store');
     });

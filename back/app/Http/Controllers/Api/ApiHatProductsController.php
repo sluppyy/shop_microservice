@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Facades\JWTUser;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BuyHatProductRequest;
 use App\Http\Requests\StoreHatProductRequest;
-use App\Http\Requests\UpdateHatProductRequest;
 use App\Http\Resources\HatProductResource;
 use App\Services\HatService;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ApiHatProductsController extends Controller
 {
@@ -50,5 +49,17 @@ class ApiHatProductsController extends Controller
         if ($product === null)
             abort(404);
         return new HatProductResource($product);
+    }
+
+    public function buyHat(BuyHatProductRequest $request)
+    {
+        $user_id = JWTUser::userId();
+        $dto = $request->validated();
+        $res = $this->service->createBuyHatRequest($user_id, $dto['product_id'], $dto['count']);
+
+        if ($res == null)
+            return abort(400);
+
+        return 'ok';
     }
 }

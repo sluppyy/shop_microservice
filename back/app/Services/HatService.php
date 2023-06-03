@@ -2,13 +2,17 @@
 
 namespace App\Services;
 
+use App\Jobs\BuyHat;
 use App\Repositories\HatProductRepository;
+use App\Repositories\HatPurchaseRepository;
 use Illuminate\Support\Facades\Storage;
 
 class HatService
 {
   function __construct(
-    private HatProductRepository $productRepo
+    private HatProductRepository $productRepo,
+    private BalanceService $balanceService,
+    private HatPurchaseRepository $purchaseRepo
   ) {
   }
 
@@ -52,5 +56,51 @@ class HatService
       Storage::disk('local')->delete($product->preview_img_url);
     }
     return $product;
+  }
+
+  //TODO add custom exception
+  function createBuyHatRequest(string $user_id, int $product_id, int $count = 1)
+  {
+    if ($count <= 0)
+      return null;
+
+    $balance = $this->balanceService->findUserBalance($user_id);
+    if ($balance == null)
+      return null;
+
+    $product = $this->findProduct($product_id);
+    if ($product == null)
+      return null;
+
+    if ($product->price * $count > $balance->candies)
+      return null;
+
+    BuyHat::dispatch($product_id, $user_id, $count);
+
+    return true;
+  }
+
+  /**
+   * private method. use createBuyHatRequest instead
+   */
+  function _buyHat(string $user_id, int $product_id, int $count = 1)
+  {
+    if ($count <= 0)
+      return;
+
+    $balance = $this->balanceService->findUserBalance($user_id);
+    if ($balance == null)
+      return;
+
+    $product = $this->findProduct($product_id);
+    if ($product == null)
+      return;
+
+    $candiesToDecrease = $product->price * $count;
+    if ($candiesToDecrease > $balance->candies)
+      return;
+
+    $this->purchaseRepo->create($user_id, $product_id, $product->price, $count);
+    $this->balanceService->decreaseBalance($user_id, $candiesToDecrease);
   }
 }
