@@ -11,8 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('user_balances', function (Blueprint $table) {
-            $table->id();
-            $table->string('user_id');
+            $table->string('user_id')->primary();
             $table->unsignedInteger('candies');
             $table->timestamps();
         });
