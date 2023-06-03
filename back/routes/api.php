@@ -29,6 +29,12 @@ Route::prefix('products')->group(function () {
     });
 });
 
+Route::prefix('inventories')->group(function () {
+    Route::prefix('hat')->controller(ApiHatProductsController::class)->group(function () {
+        Route::get('/', 'userItems');
+    });
+});
+
 Route::prefix('balance')
     ->controller(ApiUserBalancesController::class)
     ->group(function () {

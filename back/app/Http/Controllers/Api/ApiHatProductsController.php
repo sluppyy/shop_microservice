@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BuyHatProductRequest;
 use App\Http\Requests\StoreHatProductRequest;
 use App\Http\Resources\HatProductResource;
+use App\Http\Resources\UserItemsResource;
 use App\Services\HatService;
 
 class ApiHatProductsController extends Controller
@@ -56,5 +57,12 @@ class ApiHatProductsController extends Controller
         $user_id = JWTUser::userId();
         $dto = $request->validated();
         $this->service->createBuyHatRequest($user_id, $dto['product_id'], $dto['count']);
+    }
+
+    function userItems()
+    {
+        $user_id = JWTUser::userId();
+        $userItems = $this->service->findAllUserItems($user_id);
+        return UserItemsResource::collection($userItems);
     }
 }
