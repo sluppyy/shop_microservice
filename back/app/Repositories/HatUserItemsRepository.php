@@ -19,7 +19,7 @@ class HatUserItemsRepository
 
   function findUserItems(string $user_id, int $product_id): HatUserItems|null
   {
-    return HatUserItems::first(compact('user_id', 'product_id'));
+    return HatUserItems::where(compact('user_id', 'product_id'))->first();
   }
 
   function findAllUserItems(string $user_id, int $pageSize = 10, int $page = null)
@@ -38,6 +38,7 @@ class HatUserItemsRepository
 
   function updateUserItems(string $user_id, int $product_id, mixed $fill)
   {
-    return HatUserItems::where(compact('user_id', 'product_id'))->update($fill);
+    return HatUserItems::where(compact('user_id', 'product_id'))
+      ->update($fill);
   }
 }

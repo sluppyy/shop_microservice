@@ -73,12 +73,16 @@ interface Login {
 
 export const login = createAsyncThunk(
   'auth/login',
-  async ({ password, username }: Login) => {
+  async ({ password, username }: Login, api) => {
     const loginRes = await apiLogin({ identifier: username, password })
 
     if (loginRes.code != 'ok') return loginRes
 
     const res = await apiAuth()
+
+    if (res.code == 'ok') {
+      api.dispatch(loadBalance())
+    }
 
     return res
   }

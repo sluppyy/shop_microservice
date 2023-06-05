@@ -7,6 +7,7 @@ use App\Repositories\HatProductRepository;
 use App\Repositories\HatPurchaseRepository;
 use App\Repositories\HatUserItemsRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class HatService
@@ -110,12 +111,18 @@ class HatService
       throw new \App\Exceptions\NotPositiveCountException;
 
     $items = $this->findUserItems($user_id, $product_id);
-    if ($items === null) {
+    if ($items == null) {
       $items = $this->userItemsRepo->create($user_id, $product_id, $count);
       return;
     }
 
-    $this->userItemsRepo->updateUserItems($user_id, $product_id, ['count' => $items->count + $count]);
+    Log::debug(print_r($items, true));
+    $r = $this->userItemsRepo->updateUserItems(
+      $user_id,
+      $product_id,
+      ['count' => $items->count + $count]
+    );
+    Log::debug(print_r($r, true));
   }
 
   /**

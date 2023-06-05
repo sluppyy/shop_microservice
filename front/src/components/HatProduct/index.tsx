@@ -1,3 +1,4 @@
+import { buyHat, useAppDispatch, useAppSelector } from '@/store'
 import styles from './hatProduct.module.css'
 import { HatProduct as Model } from '@/models'
 
@@ -6,6 +7,18 @@ interface Props {
 }
 
 export default function HatProduct({ product }: Props) {
+  const dispatch = useAppDispatch()
+  const [candies, buyStatus] = useAppSelector((s) => [
+    s.balance.candies,
+    s.hatProducts.buyStatus,
+  ])
+
+  const canBuy = candies && candies >= product.price && buyStatus != 'loading'
+
+  function onBuy() {
+    dispatch(buyHat(product.id))
+  }
+
   return (
     <div className={`card ${styles['hatProduct']}`}>
       {product.preview_img_url ? (
@@ -22,7 +35,12 @@ export default function HatProduct({ product }: Props) {
       <div className="card-body">
         <div className="card-title">{product.name}</div>
         <div className="card-text">{product.description}</div>
-        <button className="btn btn-primary mt-2">{product.price} 🍬</button>
+        <button
+          className={`btn btn-primary mt-2 ${canBuy ? '' : 'disabled'}`}
+          onClick={onBuy}
+        >
+          {product.price} 🍬
+        </button>
       </div>
     </div>
   )

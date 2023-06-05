@@ -111,3 +111,20 @@ export async function getHatInventory(
     return { code: 'error' }
   }
 }
+
+export async function buyHat(
+  productId: number,
+  count = 1
+): Promise<'ok' | 'error'> {
+  if (!tokens.accessToken) return 'error'
+  try {
+    await axios.post(
+      '/products/hat/buy',
+      { product_id: productId, count },
+      { headers: { Authorization: `Bearer ${tokens.accessToken}` } }
+    )
+    return 'ok'
+  } catch (error) {
+    return 'error'
+  }
+}

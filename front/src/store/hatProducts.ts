@@ -2,9 +2,12 @@ import { findHatProducts } from '@/api'
 import { HatProduct } from '@/models/HatProduct'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from './store'
+import { buyHat as apiBuyHat } from '@/api'
+import { loadBalance } from './balance'
 
 interface HatProductsState {
   status: 'unknown' | 'loading' | 'ok' | 'error'
+  buyStatus: 'unknown' | 'loading' | 'ok' | 'error'
   currentPage: number | null
   pages: number | null
   total: number | null
@@ -13,6 +16,7 @@ interface HatProductsState {
 
 const initialState: HatProductsState = {
   status: 'unknown',
+  buyStatus: 'unknown',
   currentPage: null,
   pages: null,
   products: null,
@@ -40,6 +44,16 @@ export const hatProductsSlice = createSlice({
       state.pages = res.data.meta.last_page
       state.products = res.data.data
       state.total = res.data.meta.total
+    })
+
+    $.addCase(buyHat.pending, (state) => {
+      state.buyStatus = 'loading'
+    })
+    $.addCase(buyHat.rejected, (state) => {
+      state.buyStatus = 'error'
+    })
+    $.addCase(buyHat.fulfilled, (state, { payload }) => {
+      state.buyStatus = payload == 'ok' ? 'ok' : 'error'
     })
   },
 })
@@ -83,3 +97,21 @@ export const loadNextPage = createAsyncThunk(
     return res
   }
 )
+
+export const buyHat = createAsyncThunk(
+  'hatProducts/buyHat',
+  async (productId: number, api) => {
+    const res = await apiBuyHat(productId)
+
+    if (res == 'ok') {
+      await wait()
+      api.dispatch(loadBalance())
+    }
+
+    return res
+  }
+)
+
+function wait(time = 1000) {
+  return new Promise((r) => setTimeout(r, time))
+}
