@@ -40,3 +40,7 @@ Route::prefix('balance')
     ->group(function () {
         Route::get('/', 'show');
     });
+
+Route::middleware('webHook')->get('/', function () {
+    return 1;
+});
