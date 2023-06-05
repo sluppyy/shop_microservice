@@ -39,8 +39,5 @@ Route::prefix('balance')
     ->controller(ApiUserBalancesController::class)
     ->group(function () {
         Route::get('/', 'show');
+        Route::middleware('webHook')->post('/give', 'giveCandies');
     });
-
-Route::middleware('webHook')->get('/', function () {
-    return 1;
-});

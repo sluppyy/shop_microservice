@@ -36,4 +36,14 @@ class BalanceService
     $balance->save();
     return $balance;
   }
+
+  function increaseBalance(string $user_id, int $count)
+  {
+    $balance = $this->findUserBalance($user_id);
+    if ($balance == null)
+      return null;
+    $balance->candies += $count;
+    $balance->save();
+    return $balance;
+  }
 }
