@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ApiHatProductsController;
 use App\Http\Controllers\Api\ApiUserBalancesController;
+use App\Http\Controllers\Api\ApiUserHatItemsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,8 +31,9 @@ Route::prefix('products')->group(function () {
 });
 
 Route::prefix('inventories')->group(function () {
-    Route::prefix('hat')->controller(ApiHatProductsController::class)->group(function () {
-        Route::get('/', 'userItems');
+    Route::prefix('hat')->group(function () {
+        Route::get('/', [ApiHatProductsController::class, 'userItems']);
+        Route::post('/take', [ApiUserHatItemsController::class, 'takeItems']);
     });
 });
 

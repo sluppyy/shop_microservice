@@ -116,13 +116,30 @@ class HatService
       return;
     }
 
-    Log::debug(print_r($items, true));
-    $r = $this->userItemsRepo->updateUserItems(
+    $this->userItemsRepo->updateUserItems(
       $user_id,
       $product_id,
       ['count' => $items->count + $count]
     );
-    Log::debug(print_r($r, true));
+  }
+
+  function takeUserItems(string $user_id, int $product_id, int $count)
+  {
+    if ($count < 0)
+      throw new \App\Exceptions\NotPositiveCountException;
+
+    $items = $this->findUserItems($user_id, $product_id);
+    if ($items == null)
+      throw new \App\Exceptions\NotFoundUserItemsException();
+
+    if ($items->count < $count)
+      throw new \App\Exceptions\CountTooBigException();
+
+    $this->userItemsRepo->updateUserItems(
+      $user_id,
+      $product_id,
+      ['count' => $items->count - $count]
+    );
   }
 
   /**

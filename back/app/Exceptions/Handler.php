@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
+
 
 class Handler extends ExceptionHandler
 {
@@ -26,17 +26,20 @@ class Handler extends ExceptionHandler
         $this->reportable(function (NotFoundHatProductException $e) {
             return abort(404, 'notFoundHatProduct');
         });
-
         $this->reportable(function (NotEnoughCandiesException $e) {
             return abort(400, 'notEnoughCandies');
         });
-
         $this->reportable(function (NotFoundBalanceException $e) {
             return abort(404, 'notFoundBalance');
         });
-
         $this->reportable(function (NotPositiveCountException $e) {
             return abort(404, 'notPositiveCount');
+        });
+        $this->reportable(function (NotFoundUserItemsException $e) {
+            return abort(404, 'notFoundUserItems');
+        });
+        $this->reportable(function (CountTooBigException $e) {
+            return abort(404, 'countTooBig');
         });
     }
 }
