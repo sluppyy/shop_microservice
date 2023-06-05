@@ -6,6 +6,7 @@ use App\Jobs\BuyHat;
 use App\Repositories\HatProductRepository;
 use App\Repositories\HatPurchaseRepository;
 use App\Repositories\HatUserItemsRepository;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class HatService
@@ -109,15 +110,12 @@ class HatService
       throw new \App\Exceptions\NotPositiveCountException;
 
     $items = $this->findUserItems($user_id, $product_id);
-    if ($items == null) {
+    if ($items === null) {
       $items = $this->userItemsRepo->create($user_id, $product_id, $count);
-      return $items;
+      return;
     }
 
-    $items->count += $count;
-    $items->save();
-
-    return $items;
+    $this->userItemsRepo->updateUserItems($user_id, $product_id, ['count' => $items->count + $count]);
   }
 
   /**
@@ -128,6 +126,7 @@ class HatService
     if ($count <= 0)
       throw new \App\Exceptions\NotPositiveCountException();
 
+    DB::beginTransaction();
     $balance = $this->balanceService->findUserBalance($user_id);
     if ($balance == null)
       throw new \App\Exceptions\NotFoundBalanceException();
@@ -140,8 +139,9 @@ class HatService
     if ($candiesToDecrease > $balance->candies)
       throw new \App\Exceptions\NotEnoughCandiesException();
 
-    $this->purchaseRepo->create($user_id, $product_id, $product->price, $count);
-    $this->balanceService->decreaseBalance($user_id, $candiesToDecrease);
     $this->giveUserItem($user_id, $product_id, $count);
+    $this->balanceService->decreaseBalance($user_id, $candiesToDecrease);
+    $this->purchaseRepo->create($user_id, $product_id, $product->price, $count);
+    DB::commit();
   }
 }
