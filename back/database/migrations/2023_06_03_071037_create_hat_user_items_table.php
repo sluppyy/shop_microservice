@@ -12,11 +12,10 @@ return new class extends Migration {
     {
         Schema::create('hat_user_items', function (Blueprint $table) {
             $table->string('user_id');
-            $table->bigInteger('product_id');
+            $table->foreignId('product_id')->constrained('hat_products');
             $table->unsignedInteger('count');
             $table->timestamps();
 
-            $table->foreign('product_id')->references('id')->on('hat_products');
 
             $table->primary(array('user_id', 'product_id'));
         });
