@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: sm-nginx
+    image: nginx:latest
+    ports:
+      - "8876:80"
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./:/var/www
+    depends_on:
+      - sm-app
+  sm-app:
+    container_name: sm-app
+    build: 
+      context: docker/app
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
