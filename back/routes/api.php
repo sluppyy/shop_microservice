@@ -26,7 +26,6 @@ Route::prefix('products')->group(function () {
         Route::get('/', 'index');
         Route::post('/buy', 'buyHat');
         Route::get('/{id}', 'show');
-        Route::post('/', 'store');
     });
 });
 

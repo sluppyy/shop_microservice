@@ -33,14 +33,6 @@ class ApiHatProductsController extends Controller
         );
     }
 
-    public function store(StoreHatProductRequest $request)
-    {
-        $validated = $request->validated();
-        return new HatProductResource(
-            $this->service->createProduct($validated)
-        );
-    }
-
     /**
      * Display the specified resource.
      */
